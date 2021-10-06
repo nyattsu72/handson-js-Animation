@@ -1,7 +1,12 @@
 const swiper = new Swiper('.swiper', {
 	// Optional parameters
+	speed: 2000,
 	direction: 'vertical',
 	loop: true,
+	effect: 'fade',
+	fadeEffect: {
+		crossFade: true,
+	},
 
 	// Navigation arrows
 	navigation: {
@@ -15,8 +20,8 @@ function textCircleAnimation() {
 	const circlrTimeLine = gsap.timeline();
 	circlrTimeLine.fromTo(
 		'.b-cricleText',
-		{ opacity: 0.5 },
-		{ rotation: 420, opacity: 1, duration: 2, ease: 'sine.inOut' }
+		{ opacity: 0.5, rotation: 0 },
+		{ rotation: 360, opacity: 1, duration: 2, ease: 'sine.inOut' }
 	);
 }
 
@@ -26,8 +31,6 @@ function slideBoxAnimation() {
 		slideBoxTimeline.to('.l-slide', {
 			rotation: 5,
 			opacity: 0,
-			dulation: 0.2,
-			delay: 0.2,
 		}),
 		slideBoxTimeline.to('.l-slide', {
 			rotation: 0,
@@ -36,3 +39,8 @@ function slideBoxAnimation() {
 			dulation: 0.5,
 		});
 }
+
+swiper.on('slideChange', () => {
+	textCircleAnimation();
+	slideBoxAnimation();
+});
